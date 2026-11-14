@@ -21,7 +21,7 @@
     "pagetranslate": {
       "command": "npx",
       "args": ["-y", "pagetranslate-mcp@0.1.1"],
-      "env": { "PAGETRANSLATE_API_KEY": "${user_config.api_key}" }
+      "env": { "CLAUDE_PLUGIN_OPTION_API_KEY": "${user_config.api_key}" }
     }
   }
 }

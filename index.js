@@ -17,7 +17,8 @@ const APP = "https://pagetranslate.ai";
 const API = `${(process.env.PAGETRANSLATE_API_URL || "https://api.pagetranslate.ai").replace(/\/+$/, "")}/api/v1`;
 
 async function api(pathname, init = {}) {
-    const key = process.env.PAGETRANSLATE_API_KEY;
+    // A Claude plugin install passes its api_key option as CLAUDE_PLUGIN_OPTION_API_KEY.
+    const key = process.env.PAGETRANSLATE_API_KEY || process.env.CLAUDE_PLUGIN_OPTION_API_KEY;
     if (!key) {
         throw new Error(`PAGETRANSLATE_API_KEY is not set. Create a key at ${APP}/dashboard/api-keys and add it to this server's environment.`);
     }
@@ -48,7 +49,7 @@ function nextStep(job, price, paymentUrl) {
     }
     if (job.cost_cents == null) return "The price is still being calculated. Call get_translation again in a few seconds.";
     if (job.cost_cents === 0) return "Covered by the account's word balance. Tell the user, then call start_translation.";
-    return `Costs ${price}. Ask the user to pay at ${paymentUrl} (signed in to PageTranslate). Translation starts by itself once paid; then call get_translation to follow it.`;
+    return `Costs ${price}. Ask the user to pay at ${paymentUrl} (signed in to PageTranslate). Translation starts by itself once paid; then call get_translation to follow it. If the user says their account has credit, call start_translation to pay from it instead.`;
 }
 
 function summarize(job) {

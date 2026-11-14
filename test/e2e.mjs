@@ -42,13 +42,13 @@ function check(name, passed, evidence) {
     console.log(`${passed ? "PASS" : "FAIL"}: ${name}`);
 }
 
-async function connect(key) {
+async function connect(key, variable = "PAGETRANSLATE_API_KEY") {
     const client = new Client({ name: "pagetranslate-mcp-e2e", version: "1.0.0" });
     await client.connect(
         new StdioClientTransport({
             command: process.execPath,
             args: [path.join(root, "index.js")],
-            env: { ...process.env, PAGETRANSLATE_API_KEY: key },
+            env: { ...process.env, PAGETRANSLATE_API_KEY: "", [variable]: key },
         }),
     );
     const call = async (name, args = {}) => {
@@ -68,6 +68,11 @@ try {
     const rejected = await badKey.call("list_translations");
     check("a rejected key tells the user where to create one", rejected.error?.includes("/dashboard/api-keys"), rejected.error);
     await badKey.close();
+
+    const plugin = await connect(apiKey, "CLAUDE_PLUGIN_OPTION_API_KEY");
+    const viaPlugin = await plugin.call("list_translations");
+    check("the key is also read under the name a Claude plugin passes it", Array.isArray(viaPlugin.data?.jobs), viaPlugin.error ?? "listed");
+    await plugin.close();
 
     session = await connect(apiKey);
     const { call } = session;

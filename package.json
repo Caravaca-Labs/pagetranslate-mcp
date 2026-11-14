@@ -35,7 +35,8 @@
   "files": [
     "index.js",
     "skills",
-    "server.json"
+    "server.json",
+    "npm-shrinkwrap.json"
   ],
   "publishConfig": {
     "access": "public"
