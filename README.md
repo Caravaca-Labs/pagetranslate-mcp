@@ -31,6 +31,7 @@ Prices and limits below mirror https://api.pagetranslate.ai/api/v1/pricing/catal
 [![Pi package](https://img.shields.io/badge/Pi-package-3B82F6)](https://pi.dev/packages?search=pagetranslate)
 [![Agent skills](https://img.shields.io/badge/agent_skills-SKILL.md-0F766E)](#agent-skills)
 [![skills.sh](https://skills.sh/b/caravaca-labs/pagetranslate-mcp)](https://skills.sh/caravaca-labs/pagetranslate-mcp)
+[![PageTranslate MCP server on Glama](https://glama.ai/mcp/servers/Caravaca-Labs/pagetranslate-mcp/badges/score.svg)](https://glama.ai/mcp/servers/Caravaca-Labs/pagetranslate-mcp)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 
 Ask your agent to translate a PDF and you usually get the words back in a chat window. The pages,
@@ -195,7 +196,8 @@ The server is published as
 in the official MCP Registry and on npm as
 [`pagetranslate-mcp`](https://www.npmjs.com/package/pagetranslate-mcp). The skills are on
 [skills.sh](https://www.skills.sh/caravaca-labs/pagetranslate-mcp) and, for OpenClaw, on
-[ClawHub](https://clawhub.ai).
+[ClawHub](https://clawhub.ai). [Glama](https://glama.ai/mcp/servers/Caravaca-Labs/pagetranslate-mcp)
+builds and scores the server.
 
 ## Configuration
 
