@@ -98,6 +98,10 @@ gemini mcp add pagetranslate npx -e PAGETRANSLATE_API_KEY=pt_live_YOUR_KEY -- -y
 }
 ```
 
+**Claude Desktop, without a config file:** download
+[`pagetranslate.mcpb`](https://github.com/Caravaca-Labs/pagetranslate-mcp/releases/latest/download/pagetranslate.mcpb)
+and open it. Claude Desktop asks for your API key and installs the server.
+
 Then ask: *"Translate /Users/me/Documents/manual.pdf into Spanish."*
 
 ## What a translation costs
@@ -151,6 +155,12 @@ Hermes installs one skill at a time from the repository:
 
 ```bash
 hermes skills install Caravaca-Labs/pagetranslate-mcp/skills/pagetranslate-pdf-translator
+```
+
+OpenClaw installs them from [ClawHub](https://clawhub.ai):
+
+```bash
+clawhub install pagetranslate-pdf-translator
 ```
 
 Each skill's frontmatter carries `openclaw` and `hermes` metadata (the `curl` binary, the
@@ -212,6 +222,7 @@ translate, download, and match the API's file byte for byte.
 
 The four skills are generated from `scripts/build-skills.mjs`; edit that file, not the `SKILL.md`
 files. `npm version <patch|minor>` rebuilds them and updates the version in every manifest.
+`node scripts/build-mcpb.mjs` builds the Claude Desktop bundle from the published npm package.
 
 ## License
 
