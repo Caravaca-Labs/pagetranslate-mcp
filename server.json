@@ -1,0 +1,26 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.catorch/pagetranslate-mcp",
+  "title": "PageTranslate",
+  "description": "Translate PDF, scanned PDF, DOCX and EPUB files into 70+ languages with the layout kept.",
+  "websiteUrl": "https://pagetranslate.ai",
+  "repository": { "url": "https://github.com/Caravaca-Labs/pagetranslate-mcp", "source": "github" },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "pagetranslate-mcp",
+      "version": "0.1.0",
+      "transport": { "type": "stdio" },
+      "environmentVariables": [
+        {
+          "name": "PAGETRANSLATE_API_KEY",
+          "description": "PageTranslate API key. Create one at https://pagetranslate.ai/dashboard/api-keys",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "pagetranslate",
+  "version": "0.1.0",
+  "description": "PDF translator and document translator: translate PDF, scanned PDF, DOCX and EPUB files into 70+ languages, layout kept.",
+  "mcpServers": {
+    "pagetranslate": { "command": "npx", "args": ["-y", "pagetranslate-mcp@0.1.0"] }
+  },
+  "settings": [
+    {
+      "name": "PageTranslate API key",
+      "description": "Create one at https://pagetranslate.ai/dashboard/api-keys",
+      "envVar": "PAGETRANSLATE_API_KEY",
+      "sensitive": true
+    }
+  ]
+}

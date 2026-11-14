@@ -1,0 +1,12 @@
+{
+  "name": "pagetranslate",
+  "owner": { "name": "PageTranslate", "url": "https://pagetranslate.ai" },
+  "description": "Translate documents from Claude Code with PageTranslate.",
+  "plugins": [
+    {
+      "name": "pagetranslate",
+      "source": "./",
+      "description": "PDF translator and document translator: translate PDF, scanned PDF, DOCX and EPUB files into 70+ languages, layout kept."
+    }
+  ]
+}
