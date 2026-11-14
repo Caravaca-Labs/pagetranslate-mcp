@@ -1,9 +1,9 @@
 {
   "name": "pagetranslate",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "PDF translator and document translator: translate PDF, scanned PDF, DOCX and EPUB files into 70+ languages, layout kept.",
   "mcpServers": {
-    "pagetranslate": { "command": "npx", "args": ["-y", "pagetranslate-mcp@0.1.2"] }
+    "pagetranslate": { "command": "npx", "args": ["-y", "pagetranslate-mcp@0.1.3"] }
   },
   "settings": [
     {

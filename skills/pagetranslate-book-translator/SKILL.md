@@ -1,7 +1,7 @@
 ---
 name: pagetranslate-book-translator
 description: "Use this skill whenever the user wants a whole book translated: an EPUB ebook, a novel or manuscript in DOCX, or a book-length PDF. One upload returns one translated file in the same format, so an EPUB stays an EPUB. Shows the exact price for the full word count before anything is charged."
-version: 0.1.2
+version: 0.1.3
 author: Caravaca Labs
 license: MIT
 homepage: https://pagetranslate.ai/translate-a-book

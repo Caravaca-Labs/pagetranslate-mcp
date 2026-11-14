@@ -5,12 +5,12 @@
   "description": "Translate PDF, scanned PDF, DOCX and EPUB files into 70+ languages with the layout kept.",
   "websiteUrl": "https://pagetranslate.ai",
   "repository": { "url": "https://github.com/Caravaca-Labs/pagetranslate-mcp", "source": "github" },
-  "version": "0.1.2",
+  "version": "0.1.3",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "pagetranslate-mcp",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "transport": { "type": "stdio" },
       "environmentVariables": [
         {

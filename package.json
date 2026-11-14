@@ -1,6 +1,6 @@
 {
   "name": "pagetranslate-mcp",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "PDF translator and document translator for AI agents: an MCP server and agent skills that translate PDF, scanned PDF, DOCX, EPUB and image files into 70+ languages, layout kept.",
   "keywords": [
     "mcp",

@@ -1,7 +1,7 @@
 {
   "name": "pagetranslate",
   "displayName": "PageTranslate",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "PDF translator and document translator for Cursor: translate PDF, scanned PDF, DOCX and EPUB files into 70+ languages and get the same kind of file back, layout kept.",
   "author": { "name": "Caravaca Labs" },
   "homepage": "https://pagetranslate.ai",
