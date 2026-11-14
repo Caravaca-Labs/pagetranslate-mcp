@@ -1,6 +1,12 @@
 // Writes skills/<name>/SKILL.md for every skill below from one shared flow, so the four never drift.
 // Runs on `npm version` and by hand: node scripts/build-skills.mjs
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+//
+// With --plugin it also writes dist-plugin/: the Claude plugin on its own (manifest, icon, README,
+// LICENSE and the skills without the curl fallback, since the plugin always has the MCP server).
+// That folder is what the `claude-plugin` branch holds, for Anthropic's plugin directory:
+//   node scripts/build-skills.mjs --plugin && cd dist-plugin && git init -q -b claude-plugin && git add -A &&
+//   git commit -qm "Plugin <version>" && git push -f https://github.com/Caravaca-Labs/pagetranslate-mcp.git claude-plugin
+import { copyFileSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 
 const { version } = JSON.parse(readFileSync("package.json", "utf8"));
 const SITE = "https://pagetranslate.ai";
@@ -126,7 +132,38 @@ const SKILLS = [
 const list = (items) => items.map((item) => `- ${item}`).join("\n");
 const yamlList = (items) => `[${items.map((item) => JSON.stringify(item)).join(", ")}]`;
 
-const render = (skill) => `---
+const CURL_SECTION = `## Without the MCP server
+
+Same steps over HTTPS. Every request carries \`Authorization: Bearer $PAGETRANSLATE_API_KEY\`.
+
+\`\`\`bash
+API=https://api.pagetranslate.ai/api/v1
+
+# 1. Upload (free). The response has job_id and quote.total_cents.
+curl -sS -X POST "$API/upload/" -H "Authorization: Bearer $PAGETRANSLATE_API_KEY" \\
+  -F "file=@/path/to/file" -F "requested_language=es"
+
+# 2. Start from the account's word balance. A 400 "Insufficient credits" means the user
+#    pays by card at ${SITE}/dashboard?resume=JOB_ID#upload instead.
+curl -sS -X POST "$API/jobs/JOB_ID/translate" -H "Authorization: Bearer $PAGETRANSLATE_API_KEY" \\
+  -H "Content-Type: application/json" -d '{}'
+
+# 3. Poll until "status" is "completed" ("payment_status" shows whether it was paid).
+curl -sS "$API/jobs/JOB_ID" -H "Authorization: Bearer $PAGETRANSLATE_API_KEY"
+
+# 4. Download. -OJ keeps the server's file name; run it in the folder to save into.
+curl -sS -OJ "$API/jobs/JOB_ID/download" -H "Authorization: Bearer $PAGETRANSLATE_API_KEY"
+\`\`\`
+
+`;
+
+const pluginFrontmatter = (skill) => `---
+name: ${skill.name}
+description: ${JSON.stringify(skill.description)}
+license: MIT
+---`;
+
+const frontmatter = (skill) => `---
 name: ${skill.name}
 description: ${JSON.stringify(skill.description)}
 version: ${version}
@@ -151,7 +188,9 @@ metadata:
     tags: ${yamlList(skill.tags)}
     category: productivity
     requires_toolsets: ["terminal"]
----
+---`;
+
+const render = (skill, plugin = false) => `${plugin ? pluginFrontmatter(skill) : frontmatter(skill)}
 
 # ${skill.title}
 
@@ -169,14 +208,19 @@ ${list(skill.when)}
 - **Target language:** a code such as \`es\`, \`fr\`, \`de\`, \`it\`, \`ja\`, \`ko\`, \`ar\`, \`hi\`, \`ru\`.
   Use \`pt-BR\` for Brazilian Portuguese, \`zh\` for Simplified and \`zh-TW\` for Traditional Chinese.
   The source language is detected. If the user did not name a target language, ask.
-- **API key:** the user creates one at ${SITE}/dashboard/api-keys (free account, verified
-  email) and sets it as \`PAGETRANSLATE_API_KEY\`.
+${
+    plugin
+        ? `- **API key:** the plugin asked for it when it was installed. If a tool says the key is missing or
+  rejected, the user creates one at ${SITE}/dashboard/api-keys and updates the plugin's settings.`
+        : `- **API key:** the user creates one at ${SITE}/dashboard/api-keys (free account, verified
+  email) and sets it as \`PAGETRANSLATE_API_KEY\`.`
+}
 - **Price:** uploading is free and returns the exact price. Nothing is charged until the user pays.
 - **Limits:** PDF, DOCX, EPUB, PNG, JPG, WEBP, TIFF, BMP, GIF. Up to 100 MB and 1,000 PDF pages.
 
 ## Steps
 
-Use the \`pagetranslate\` MCP tools when they are available. Otherwise use curl (next section).
+${plugin ? "Use the \`pagetranslate\` MCP tools." : "Use the \`pagetranslate\` MCP tools when they are available. Otherwise use curl (next section)."}
 
 1. **Upload:** \`upload_document\` with the file's absolute path and the target language. It returns
    \`job_id\`, \`word_count\`, \`price\` and \`next_step\`.
@@ -191,30 +235,7 @@ Use the \`pagetranslate\` MCP tools when they are available. Otherwise use curl 
 
 \`list_translations\` shows earlier jobs, for example to download one again.
 
-## Without the MCP server
-
-Same steps over HTTPS. Every request carries \`Authorization: Bearer $PAGETRANSLATE_API_KEY\`.
-
-\`\`\`bash
-API=https://api.pagetranslate.ai/api/v1
-
-# 1. Upload (free). The response has job_id and quote.total_cents.
-curl -sS -X POST "$API/upload/" -H "Authorization: Bearer $PAGETRANSLATE_API_KEY" \\
-  -F "file=@/path/to/file" -F "requested_language=es"
-
-# 2. Start from the account's word balance. A 400 "Insufficient credits" means the user
-#    pays by card at ${SITE}/dashboard?resume=JOB_ID#upload instead.
-curl -sS -X POST "$API/jobs/JOB_ID/translate" -H "Authorization: Bearer $PAGETRANSLATE_API_KEY" \\
-  -H "Content-Type: application/json" -d '{}'
-
-# 3. Poll until "status" is "completed" ("payment_status" shows whether it was paid).
-curl -sS "$API/jobs/JOB_ID" -H "Authorization: Bearer $PAGETRANSLATE_API_KEY"
-
-# 4. Download. -OJ keeps the server's file name; run it in the folder to save into.
-curl -sS -OJ "$API/jobs/JOB_ID/download" -H "Authorization: Bearer $PAGETRANSLATE_API_KEY"
-\`\`\`
-
-## ${skill.notesTitle}
+${plugin ? "" : CURL_SECTION}## ${skill.notesTitle}
 
 ${list(skill.notes)}
 
@@ -244,3 +265,46 @@ for (const skill of SKILLS) {
     writeFileSync(`skills/${skill.name}/SKILL.md`, render(skill));
 }
 console.log(`wrote ${SKILLS.length} skills at version ${version}`);
+
+if (process.argv.includes("--plugin")) {
+    rmSync("dist-plugin", { recursive: true, force: true });
+    mkdirSync("dist-plugin/.claude-plugin", { recursive: true });
+    copyFileSync(".claude-plugin/plugin.json", "dist-plugin/.claude-plugin/plugin.json");
+    copyFileSync(".claude-plugin/icon.png", "dist-plugin/.claude-plugin/icon.png");
+    copyFileSync("LICENSE", "dist-plugin/LICENSE");
+    for (const skill of SKILLS) {
+        mkdirSync(`dist-plugin/skills/${skill.name}`, { recursive: true });
+        writeFileSync(`dist-plugin/skills/${skill.name}/SKILL.md`, render(skill, true));
+    }
+    writeFileSync(
+        "dist-plugin/README.md",
+        `# PageTranslate for Claude
+
+A PDF translator and document translator for Claude. Name a file on your computer and a language, and
+[PageTranslate](${SITE}) translates the whole document and returns the same kind of file: a PDF with
+its pages, tables and images in place, a DOCX that is still a DOCX, an EPUB that is still an EPUB.
+Scanned PDFs and photos are read with OCR first.
+
+The plugin adds one MCP server (\`pagetranslate\`) and four skills:
+
+${list(SKILLS.map((skill) => `\`${skill.name}\`: ${skill.intro}`))}
+
+## Setup
+
+Installing the plugin asks for a PageTranslate API key. Create one at ${SITE}/dashboard/api-keys
+(free account, verified email).
+
+## What it sends, and what it costs
+
+The file you name is uploaded to PageTranslate over HTTPS under your account. Uploading is free and
+returns the exact price (8¢ per 1,000 words, $3.99 minimum per document). Claude cannot spend money:
+you pay in your browser, or the job runs on words you already bought. See the
+[privacy policy](${SITE}/privacy).
+
+Source, issues and the other ways to install: ${REPO}
+
+MIT License.
+`,
+    );
+    console.log("wrote dist-plugin/");
+}

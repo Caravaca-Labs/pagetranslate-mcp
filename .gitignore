@@ -2,3 +2,4 @@ node_modules/
 test-artifacts/
 *.tgz
 dist-mcpb/
+dist-plugin/
