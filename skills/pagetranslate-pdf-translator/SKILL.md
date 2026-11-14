@@ -1,7 +1,7 @@
 ---
 name: pagetranslate-pdf-translator
 description: "Use this skill whenever the user wants a PDF translated into another language and returned as a PDF with its pages, tables, fonts and images in place: manuals, contracts, reports, papers, brochures, large PDFs. Uploads the file to PageTranslate, shows the exact price first, and downloads the translated PDF."
-version: 0.1.1
+version: 0.1.2
 author: Caravaca Labs
 license: MIT
 homepage: https://pagetranslate.ai/pdf-translator

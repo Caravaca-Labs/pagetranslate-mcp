@@ -1,7 +1,7 @@
 ---
 name: pagetranslate-scanned-pdf-translator
 description: "Use this skill whenever the user wants a scanned PDF, a photographed page or an image of text (PNG, JPG, WEBP, TIFF) translated. PageTranslate reads the scan with OCR, translates it and puts the translation back on the page, so the result is still a PDF or image, not loose text."
-version: 0.1.1
+version: 0.1.2
 author: Caravaca Labs
 license: MIT
 homepage: https://pagetranslate.ai/faq/how-to-translate-scanned-pdf

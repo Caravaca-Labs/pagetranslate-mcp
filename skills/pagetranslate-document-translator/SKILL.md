@@ -1,7 +1,7 @@
 ---
 name: pagetranslate-document-translator
 description: "Use this skill whenever the user wants a Word document or business file translated and returned as the same kind of file: DOCX contracts, manuals, HR policies, marketing material, financial reports, CVs. Keeps headings, tables, lists and images. Shows the exact price first."
-version: 0.1.1
+version: 0.1.2
 author: Caravaca Labs
 license: MIT
 homepage: https://pagetranslate.ai/document-translation-software
