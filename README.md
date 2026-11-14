@@ -3,10 +3,20 @@ Keyword rationale (DataForSEO Google Ads, US, 2026-11-13):
   pdf translator / translate pdf 4,400/mo · document translator / translate document 3,600/mo
   MCP modifiers ("translation mcp", "pdf translator mcp", "document translation mcp") have no
   measurable volume. The surfaces that matter are each MCP directory's own search, GitHub search,
-  npm search and skills.sh, all of which read the repo description, package.json
-  description/keywords, server.json description, SKILL.md description and the README H1/H2s.
-Contiguous phrases to keep intact: "PDF translator", "document translator", "translate a PDF",
-  "scanned PDF", "MCP server", "Agent Skill".
+  npm search, skills.sh and ClawHub, all of which read the repo description, package.json
+  description/keywords, server.json description, each SKILL.md description and the README H1/H2s.
+Contiguous phrases to keep intact: "PDF translator", "document translator", "EPUB translator",
+  "translate a PDF", "translate a book", "scanned PDF", "MCP server", "Agent Skills".
+Deep links (keyword targets of 2026-11-12, plus Search Console 2026-10-14 to 2026-11-11 as
+  clicks/impressions): /pdf-translator · /epub-translator (6/35) · /translate-a-book ·
+  /document-translation-software · /docx-translator · /translate-a-book/ai-novel-translator (2/46) ·
+  /pdf-translator/translate-large-pdf (5/166) · /faq/how-much-does-it-cost-to-translate-a-book (1/89) ·
+  /tools/translation-cost-calculator (9/1,261) · /faq/how-to-translate-scanned-pdf ·
+  /blog/how-to-open-epub-on-kindle (5/382) ·
+  /document-translation-software/translation-software-for-legal-documents ·
+  /document-translation-software/google-translate-english-to-spanish-documents (2/1,132).
+  Anchor text is each page's own title. Every link in this file and in skills/ returned 200 on
+  2026-11-13; re-check them when a page moves. The skills' links come from scripts/build-skills.mjs.
 Banned claims (not shipped): XLSX, PPTX, subtitles or video; "free translation" (only the upload
   and the quote are free); more than "70+ languages" (the API accepts 74 codes); human or
   certified translation; glossaries or translation memory; translating pasted text (files only).
@@ -18,7 +28,9 @@ Prices and limits below mirror https://api.pagetranslate.ai/api/v1/pricing/catal
 # PageTranslate MCP server: a PDF translator and document translator for AI agents
 
 [![npm package](https://img.shields.io/npm/v/pagetranslate-mcp?label=npm)](https://www.npmjs.com/package/pagetranslate-mcp)
-[![Agent skill](https://img.shields.io/badge/agent_skill-SKILL.md-0F766E)](./skills/translate-document/SKILL.md)
+[![Pi package](https://img.shields.io/badge/Pi-package-3B82F6)](https://pi.dev/packages?search=pagetranslate)
+[![Agent skills](https://img.shields.io/badge/agent_skills-SKILL.md-0F766E)](#agent-skills)
+[![skills.sh](https://skills.sh/b/caravaca-labs/pagetranslate-mcp)](https://skills.sh/caravaca-labs/pagetranslate-mcp)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 
 Ask your agent to translate a PDF and you usually get the words back in a chat window. The pages,
@@ -33,11 +45,13 @@ You say "translate contract.pdf into German", approve the price, and the German 
 to the original.
 
 - **Files:** PDF, scanned PDF, DOCX, EPUB, and images (PNG, JPG, WEBP, TIFF, BMP, GIF). Up to 100 MB and 1,000 PDF pages.
-- **Scans and photos** are read with OCR, then translated onto the page.
-- **Whole books:** a 150,000-word novel is one upload, not 300 chat messages.
+- **Scans and photos** are read with OCR, then translated onto the page. See [how to translate a scanned PDF](https://pagetranslate.ai/faq/how-to-translate-scanned-pdf).
+- **Whole books:** a 150,000-word novel is one upload, not 300 chat messages. It works the same way as the [EPUB translator](https://pagetranslate.ai/epub-translator) on the site.
 - **The price comes first.** Uploading is free and returns the exact price. The agent cannot spend money: you pay in your browser, or the job runs on words you already bought.
 
-From the makers of [pagetranslate.ai](https://pagetranslate.ai).
+The package ships an MCP server and four Agent Skills, for Claude Code, Claude Desktop, Cursor,
+Codex, Gemini CLI, Pi, Hermes, OpenClaw and other agents. From the makers of
+[pagetranslate.ai](https://pagetranslate.ai).
 
 ## Set up
 
@@ -51,7 +65,7 @@ From the makers of [pagetranslate.ai](https://pagetranslate.ai).
 claude mcp add pagetranslate -e PAGETRANSLATE_API_KEY=pt_live_YOUR_KEY -- npx -y pagetranslate-mcp
 ```
 
-Or install it as a plugin, which adds the skill too:
+Or install it as a plugin, which adds the skills too:
 
 ```
 /plugin marketplace add Caravaca-Labs/pagetranslate-mcp
@@ -89,8 +103,9 @@ Then ask: *"Translate /Users/me/Documents/manual.pdf into Spanish."*
 ## What a translation costs
 
 8¢ per 1,000 words, with a $3.99 minimum per document. A 20,000-word report is $3.99; an
-80,000-word novel is $6.40. The Pro plan is $10 a month for 500,000 words. Current prices are on
-[pagetranslate.ai](https://pagetranslate.ai).
+80,000-word novel is $6.40. The Pro plan is $10 a month for 500,000 words. The site explains
+[how much it costs to translate a book](https://pagetranslate.ai/faq/how-much-does-it-cost-to-translate-a-book)
+and has a [translation cost calculator](https://pagetranslate.ai/tools/translation-cost-calculator).
 
 `upload_document` is free and returns the exact price for that file. If your account's word balance
 covers it, the agent can start it. If not, the agent gives you a payment link, you pay by card on
@@ -106,17 +121,62 @@ pagetranslate.ai, and the translation starts by itself.
 | `list_translations` | Recent jobs on the account. |
 | `download_translation` | Saves the finished file to a folder. Never overwrites an existing file. |
 
-## Agent Skill
+## Agent skills
 
-`skills/translate-document` is an [Agent Skill](https://agentskills.io) that teaches an agent the
-whole flow: ask for the target language, show the price, wait for payment, poll, download. It uses
-the MCP tools when they are installed and plain `curl` when they are not.
+Four [Agent Skills](https://agentskills.io) ship in `skills/` and inside the npm package. Each
+teaches an agent the whole flow for one kind of file: ask for the target language, show the price,
+wait for payment, poll, download. They use the MCP tools when those are installed and plain `curl`
+when they are not, so they also work in agents that have no MCP support.
+
+| Skill | Use it for | Online version |
+| --- | --- | --- |
+| [`pagetranslate-pdf-translator`](skills/pagetranslate-pdf-translator/SKILL.md) | PDFs, with the layout kept | [PDF translator](https://pagetranslate.ai/pdf-translator) |
+| [`pagetranslate-scanned-pdf-translator`](skills/pagetranslate-scanned-pdf-translator/SKILL.md) | Scanned PDFs and photos of pages | [How to translate a scanned PDF](https://pagetranslate.ai/faq/how-to-translate-scanned-pdf) |
+| [`pagetranslate-book-translator`](skills/pagetranslate-book-translator/SKILL.md) | EPUBs, novels and manuscripts | [Translate a book](https://pagetranslate.ai/translate-a-book) |
+| [`pagetranslate-document-translator`](skills/pagetranslate-document-translator/SKILL.md) | Word documents and business files | [Document translation software](https://pagetranslate.ai/document-translation-software) |
+
+Claude Code, Cursor, Codex and other [skills.sh](https://skills.sh) agents install them from GitHub:
 
 ```bash
-npx skills add Caravaca-Labs/pagetranslate-mcp
+npx skills add Caravaca-Labs/pagetranslate-mcp --skill '*' --yes
 ```
 
-The MCP server also serves the skill to clients that read skills over MCP.
+Pi loads them straight from npm:
+
+```bash
+pi install npm:pagetranslate-mcp
+```
+
+Hermes installs one skill at a time from the repository:
+
+```bash
+hermes skills install Caravaca-Labs/pagetranslate-mcp/skills/pagetranslate-pdf-translator
+```
+
+Each skill's frontmatter carries `openclaw` and `hermes` metadata (the `curl` binary, the
+`PAGETRANSLATE_API_KEY` variable, tags) next to the standard fields.
+
+## Online versions
+
+Prefer a browser?
+
+- [PageTranslate PDF translator](https://pagetranslate.ai/pdf-translator)
+- [PageTranslate EPUB translator](https://pagetranslate.ai/epub-translator)
+- [PageTranslate DOCX translator](https://pagetranslate.ai/docx-translator)
+- [Translate a book](https://pagetranslate.ai/translate-a-book)
+- [Document translation software](https://pagetranslate.ai/document-translation-software)
+- [AI novel translator](https://pagetranslate.ai/translate-a-book/ai-novel-translator)
+- [Translate a large PDF](https://pagetranslate.ai/pdf-translator/translate-large-pdf)
+
+Guides and free tools:
+
+- [How much does it cost to translate a book](https://pagetranslate.ai/faq/how-much-does-it-cost-to-translate-a-book)
+- [Translation cost calculator](https://pagetranslate.ai/tools/translation-cost-calculator)
+- [How to translate a scanned PDF](https://pagetranslate.ai/faq/how-to-translate-scanned-pdf)
+- [How to open EPUB on Kindle](https://pagetranslate.ai/blog/how-to-open-epub-on-kindle)
+- [Translation software for legal documents](https://pagetranslate.ai/document-translation-software/translation-software-for-legal-documents)
+- [Translate English to Spanish documents](https://pagetranslate.ai/document-translation-software/google-translate-english-to-spanish-documents)
+- [EPUB merger](https://pagetranslate.ai/tools/epub-merger) and other [free tools for authors](https://pagetranslate.ai/tools)
 
 ## Configuration
 
@@ -150,7 +210,8 @@ for an account with no word balance: the job must stop at a payment link, so not
 `E2E_EXPECT=completed` is for an account whose balance covers the 56-word sample: it must
 translate, download, and match the API's file byte for byte.
 
-`npm version <patch|minor>` updates the version in every manifest.
+The four skills are generated from `scripts/build-skills.mjs`; edit that file, not the `SKILL.md`
+files. `npm version <patch|minor>` rebuilds them and updates the version in every manifest.
 
 ## License
 

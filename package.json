@@ -1,7 +1,7 @@
 {
   "name": "pagetranslate-mcp",
-  "version": "0.1.0",
-  "description": "PDF translator and document translator for AI agents: an MCP server that translates PDF, scanned PDF, DOCX, EPUB and image files into 70+ languages, layout kept.",
+  "version": "0.1.1",
+  "description": "PDF translator and document translator for AI agents: an MCP server and agent skills that translate PDF, scanned PDF, DOCX, EPUB and image files into 70+ languages, layout kept.",
   "keywords": [
     "mcp",
     "model-context-protocol",
@@ -13,7 +13,11 @@
     "epub",
     "book-translation",
     "ocr",
-    "agent-skills"
+    "agent-skills",
+    "pi-package",
+    "translate-pdf",
+    "epub-translator",
+    "document-translator"
   ],
   "homepage": "https://pagetranslate.ai",
   "bugs": "https://github.com/Caravaca-Labs/pagetranslate-mcp/issues",
@@ -30,14 +34,24 @@
   },
   "files": [
     "index.js",
-    "skills"
+    "skills",
+    "server.json"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "pi": {
+    "skills": [
+      "./skills"
+    ]
+  },
   "engines": {
     "node": ">=20"
   },
   "scripts": {
     "test": "node test/e2e.mjs",
-    "version": "node scripts/sync-version.mjs && git add server.json .claude-plugin/plugin.json gemini-extension.json"
+    "version": "node scripts/sync-version.mjs && node scripts/build-skills.mjs && git add server.json .claude-plugin/plugin.json gemini-extension.json skills",
+    "build:skills": "node scripts/build-skills.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/server": "2.4.0",

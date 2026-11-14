@@ -8,7 +8,6 @@ import { pipeline } from "node:stream/promises";
 import { fileURLToPath } from "node:url";
 
 import { McpServer } from "@modelcontextprotocol/server";
-import { loadSkills } from "@modelcontextprotocol/server/ext/skills/node";
 import { serveStdio } from "@modelcontextprotocol/server/stdio";
 import { z } from "zod";
 
@@ -79,7 +78,7 @@ function createServer() {
         { name: "pagetranslate", title: "PageTranslate", version, websiteUrl: APP },
         {
             instructions:
-                "Translates whole documents (PDF, scanned PDF, DOCX, EPUB, images) into 70+ languages and returns a file with the original layout. " +
+                "PageTranslate (https://pagetranslate.ai) translates whole documents (PDF, scanned PDF, DOCX, EPUB, images) into 70+ languages and returns a file with the original layout. " +
                 "Flow: upload_document (free, returns the exact price) -> the user pays at payment_url, or start_translation when the account balance covers it -> " +
                 "get_translation until status is completed -> download_translation. Never claim a translation is running before payment_status is paid.",
         },
@@ -214,11 +213,4 @@ function createServer() {
     return server;
 }
 
-// Also serve the bundled Agent Skill to clients that read skills over MCP. Optional: tools work without it.
-const skills = await loadSkills(path.join(here, "skills")).catch(() => null);
-
-serveStdio(() => {
-    const server = createServer();
-    skills?.attach(server);
-    return server;
-});
+serveStdio(createServer);

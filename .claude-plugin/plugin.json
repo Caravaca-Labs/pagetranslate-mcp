@@ -1,7 +1,7 @@
 {
   "name": "pagetranslate",
   "displayName": "PageTranslate",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "PDF translator and document translator for Claude: translate PDF, scanned PDF, DOCX, EPUB and image files into 70+ languages and get the same kind of file back, layout kept.",
   "author": { "name": "PageTranslate", "url": "https://pagetranslate.ai" },
   "homepage": "https://pagetranslate.ai",
@@ -20,7 +20,7 @@
   "mcpServers": {
     "pagetranslate": {
       "command": "npx",
-      "args": ["-y", "pagetranslate-mcp@0.1.0"],
+      "args": ["-y", "pagetranslate-mcp@0.1.1"],
       "env": { "PAGETRANSLATE_API_KEY": "${user_config.api_key}" }
     }
   }

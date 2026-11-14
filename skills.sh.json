@@ -1,0 +1,22 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "PDF Translation",
+      "description": "Skills for translating PDFs and scanned PDFs with the layout kept.",
+      "skills": [
+        "pagetranslate-pdf-translator",
+        "pagetranslate-scanned-pdf-translator"
+      ]
+    },
+    {
+      "title": "Books & Documents",
+      "description": "Skills for translating whole books, EPUBs and Word documents.",
+      "skills": [
+        "pagetranslate-book-translator",
+        "pagetranslate-document-translator"
+      ]
+    }
+  ]
+}
