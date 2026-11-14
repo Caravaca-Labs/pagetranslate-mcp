@@ -18,11 +18,23 @@ that cannot reach npm or `https://api.pagetranslate.ai`.
 
 ## Configure
 
-Open Cline's MCP server configuration. Merge this entry into its existing
-`mcpServers` object without replacing other servers. The CLI uses
-`~/.cline/mcp.json`; the editor extension exposes its own configuration through
-the MCP Servers panel, so use the file opened by that panel rather than guessing
-the extension's profile path.
+For Cline CLI 3.x, use its native installer:
+
+```sh
+cline mcp install pagetranslate --transport stdio --yes -- npx -y pagetranslate-mcp@0.1.3
+```
+
+Have the user privately provide `PAGETRANSLATE_API_KEY` in the environment used
+to launch Cline. Do not print the value or place it in shell history. The CLI
+stores the command under a nested `transport` object; do not paste an editor
+extension's legacy flat server entry into CLI 3.x. The CLI uses
+`~/.cline/data/settings/cline_mcp_settings.json`, overridable with
+`CLINE_MCP_SETTINGS_PATH`. The editor extension exposes its own configuration
+through the MCP Servers panel, so use the file opened by that panel rather than
+guessing the extension's profile path. For that editor extension, merge the
+following entry into its existing `mcpServers` object without replacing other
+servers. Do not open the adjacent `providers.json`,
+which contains the model provider's private authentication settings.
 
 ```json
 {

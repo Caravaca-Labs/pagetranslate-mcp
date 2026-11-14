@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-14",
+  "client": "Cline CLI 3.0.74",
+  "server": "pagetranslate-mcp@0.1.3",
+  "isolation": "Docker node:24-bookworm-slim; public README and llms-install.md only; no host repositories or admin credentials mounted",
+  "installation": {
+    "performed_by": "Cline, after reading llms-install.md",
+    "command": "cline mcp install pagetranslate --transport stdio --yes -- npx -y pagetranslate-mcp@0.1.3",
+    "result": "Installed MCP server pagetranslate.",
+    "configuration": "CLI 3.x native nested transport schema; editor extension flat configuration is documented separately"
+  },
+  "observed_client_tool_call": {
+    "name": "pagetranslate__list_translations",
+    "arguments": {},
+    "result": "PageTranslate API error 401: API key rejected.",
+    "expected": true,
+    "explanation": "A literal placeholder API key intentionally verifies launch, MCP discovery/invocation and safe authentication failure without exposing a real key. The API 401 is not an MCP transport disconnection."
+  },
+  "limits": {
+    "authenticated_translation_test": false,
+    "all_five_tools_individually_invoked_in_cline": false,
+    "words_spent": 0,
+    "purchases": 0,
+    "automatic_tool_approval": false
+  },
+  "passed": true
+}
