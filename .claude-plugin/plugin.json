@@ -3,7 +3,7 @@
   "displayName": "PageTranslate",
   "version": "0.1.3",
   "description": "PDF translator and document translator for Claude: translate PDF, scanned PDF, DOCX, EPUB and image files into 70+ languages and get the same kind of file back, layout kept.",
-  "author": { "name": "Caravaca Labs", "url": "https://pagetranslate.ai" },
+  "author": { "name": "PageTranslate", "url": "https://pagetranslate.ai" },
   "homepage": "https://pagetranslate.ai",
   "repository": "https://github.com/Caravaca-Labs/pagetranslate-mcp",
   "license": "MIT",
