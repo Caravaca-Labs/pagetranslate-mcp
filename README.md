@@ -105,6 +105,27 @@ and open it. Claude Desktop asks for your API key and installs the server.
 
 Then ask: *"Translate /Users/me/Documents/manual.pdf into Spanish."*
 
+## Use it from Claude, ChatGPT or Grok
+
+Chat assistants cannot start a local server, so PageTranslate hosts one. Add its address as a
+custom connector and sign in with your PageTranslate account when the assistant asks. There is
+nothing to install and no API key to copy.
+
+```
+https://pagetranslate.ai/mcp
+```
+
+- **Claude:** Settings → Customize → Connectors → Add → Add custom connector.
+- **Grok:** Settings → Connect Apps → Add a custom connector.
+- **ChatGPT:** use `https://pagetranslate.ai/mcp/chatgpt`. It also takes a file attached in the
+  chat, and it only starts translations that your account's word balance already covers.
+
+An assistant cannot read a file on your computer. Give it a public link to the document, or upload
+the file on [pagetranslate.ai](https://pagetranslate.ai/dashboard) and ask the assistant to find it.
+It tells you the word count and the exact price. If your word balance covers the document, it
+starts the translation when you agree; if not, it gives you a payment link. When the file is ready
+it returns a download link that works for one hour.
+
 ## What a translation costs
 
 8¢ per 1,000 words, with a $3.99 minimum per document. A 20,000-word report is $3.99; an
@@ -197,7 +218,8 @@ in the official MCP Registry and on npm as
 [`pagetranslate-mcp`](https://www.npmjs.com/package/pagetranslate-mcp). The skills are on
 [skills.sh](https://www.skills.sh/caravaca-labs/pagetranslate-mcp) and, for OpenClaw, on
 [ClawHub](https://clawhub.ai). [Glama](https://glama.ai/mcp/servers/Caravaca-Labs/pagetranslate-mcp)
-builds and scores the server.
+builds and scores the server. The registry entry also lists the hosted server,
+`https://pagetranslate.ai/mcp`.
 
 ## Configuration
 

@@ -22,5 +22,6 @@
         }
       ]
     }
-  ]
+  ],
+  "remotes": [{ "type": "streamable-http", "url": "https://pagetranslate.ai/mcp" }]
 }
