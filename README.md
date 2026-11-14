@@ -87,6 +87,8 @@ gemini mcp add pagetranslate npx -e PAGETRANSLATE_API_KEY=pt_live_YOUR_KEY -- -y
 
 **Claude Desktop, Cursor, VS Code, Windsurf, Cline and other clients** take this block in their MCP settings file:
 
+Cline also has a [step-by-step installation and read-only verification guide](llms-install.md).
+
 ```json
 {
   "mcpServers": {
