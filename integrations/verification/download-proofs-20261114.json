@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-14T22:38:49.969Z",
+  "downloads": [
+    {
+      "platform": "replit",
+      "status": 200,
+      "bytes": 1693,
+      "sha256": "702e42bb77401b22758961404af5f9827f0eb8aa11f51efe3f17eb1f5b78d340",
+      "validPDF": true
+    },
+    {
+      "platform": "retool",
+      "status": 200,
+      "bytes": 1700,
+      "sha256": "7ed7b5eb3b93821dd2a4423dbb97dbf03cb2305583d32f92fedc54849fa0f57f",
+      "validPDF": true
+    },
+    {
+      "platform": "bubble",
+      "status": 200,
+      "bytes": 1694,
+      "sha256": "a10ed9c84d6fc55114fe81027e3cb59da8181e624964d4613e2df1b0893b69b2",
+      "validPDF": true
+    }
+  ]
+}

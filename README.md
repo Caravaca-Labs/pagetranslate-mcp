@@ -235,8 +235,11 @@ For workflows outside an MCP client, use the
 [RapidAPI listing](https://rapidapi.com/CaravacaLabs/api/pagetranslateai-document-translation)
 or the [remixable Replit document translator](https://replit.com/@caravacaai/PageTranslateAI-Translator?v=1).
 Both use your own PageTranslate API key. The Replit demo runs on time-limited free hosting.
-Native connector source and current publication status are in
-[PageTranslate integrations](https://github.com/Caravaca-Labs/pagetranslate-integrations).
+Connector documentation, the RapidAPI specification and sanitized verification
+evidence are in this repository's
+[integration guide](https://github.com/Caravaca-Labs/pagetranslate-mcp/blob/main/integrations/README.md).
+The [native n8n node](https://github.com/Caravaca-Labs/n8n-nodes-pagetranslate)
+has its own source repository and repeatable verification instructions.
 
 ## Configuration
 

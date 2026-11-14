@@ -1,0 +1,73 @@
+{
+  "date": "2026-11-14",
+  "authorization": {
+    "scope": "Disposable demo API key only in local n8n, Replit, Retool, RapidAPI and Bubble; isolated Cline setup using public instructions and a placeholder key",
+    "maximum_words": 1000,
+    "actual_words_spent": 800,
+    "purchases": 0,
+    "admin_credentials_used": false
+  },
+  "word_ledger": [
+    { "platform": "n8n preflight", "job_id": "6af8d2c1c9549512469972b5", "words": 100 },
+    { "platform": "n8n first recording", "job_id": "6af8d6a8c9549512469972be", "words": 100 },
+    { "platform": "n8n submitted recording", "job_id": "6af8d97bc9549512469972c9", "words": 100 },
+    { "platform": "RapidAPI", "job_id": "6af8dd0ec9549512469972d3", "words": 100 },
+    { "platform": "Replit first start; exposed UI cache bug", "job_id": "6af8e0dcc9549512469972df", "words": 100 },
+    { "platform": "Bubble", "job_id": "6af8e1bdc9549512469972e7", "words": 100 },
+    { "platform": "Retool corrected workflow", "job_id": "6af8e223c9549512469972ee", "words": 100 },
+    { "platform": "Replit corrected workflow", "job_id": "6af8e246c9549512469972f3", "words": 100 }
+  ],
+  "replit": {
+    "passed": true,
+    "url": "https://page-translate-ai-translator--caravacaai.replit.app/",
+    "observed": [
+      "Malformed PDF rejected locally with HTTP 422",
+      "Valid 100-word PDF upload produced pending job and zero-cent quote",
+      "Start button disabled until separate checkbox confirmation",
+      "Confirmed credits-only start did not crash after the start-response cache fix",
+      "Actual job GET was used instead of caching the partial start acknowledgment as a full job",
+      "Automatic progress reached completed at 100 percent and produced a one-hour PDF download link",
+      "Downloaded bytes were a valid Spanish PDF",
+      "All 15 resource footer links retained; API key cleared from page memory"
+    ],
+    "deployed_fixes": ["pdf-lib page counting instead of unavailable pdfinfo", "native FormData/Blob instead of incompatible form-data with fetch", "invalidate/refetch job after start instead of caching partial acknowledgment"],
+    "limits": ["Free deployment expires after 29 days; no paid hosting purchased"]
+  },
+  "retool": {
+    "passed": true,
+    "url": "https://caravacalabs--pagetranslateai-document-translator.retool.app/",
+    "observed": [
+      "Authenticated list and completed-job lookup returned real demo data",
+      "Removed manually supplied multipart Content-Type so resource client generates its boundary",
+      "Reviewed and approved only the changed upload function; approval requirement remained enabled",
+      "Published the correction and tested a new real 100-word PDF upload",
+      "Pending zero-cent quote required an unchecked confirmation checkbox before start",
+      "Confirmed credits-only start, bounded polling, completed status and fresh download link succeeded",
+      "Downloaded bytes were a valid Spanish PDF",
+      "Clear removed the API key and returned the page to its idle state"
+    ],
+    "limits": ["Login-gated Free workspace app, not a public anonymous backlink; no paid upgrade purchased"]
+  },
+  "bubble": {
+    "passed": true,
+    "published_version": "1.0.0",
+    "test_type": "Live API-call initialization in Bubble Plugin Editor, not a complete Bubble application UI E2E",
+    "observed": [
+      "Real authenticated list and job-status API calls initialized successfully",
+      "Multipart sample.pdf upload returned job_id, 100-word quote and total_cents 0",
+      "Separate explicitly selected credits-only start queued that exact job",
+      "Status lookup confirmed completed, progress 100, word_count 100 and cost_cents 0",
+      "Get download link returned a filename and expires_in 3600",
+      "Downloaded bytes were a valid Spanish PDF",
+      "Removed both temporary authentication values, all three test job defaults and the uploaded fixture default",
+      "Restored the download-response schema to an explicitly nonfunctional example after live verification; no signed link published as a default"
+    ],
+    "limits": ["No separate Bubble application workflow was built or claimed; existing public 1.0.0 left intact"]
+  },
+  "evidence": {
+    "downloads": "download-proofs-20261114.json",
+    "rapidapi": "rapidapi-live-20261114.json",
+    "n8n_video_submission": "n8n-review-video-20261114.json",
+    "cline": "https://github.com/Caravaca-Labs/pagetranslate-mcp/blob/main/verification/cline-20261114.json"
+  }
+}

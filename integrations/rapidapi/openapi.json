@@ -1,0 +1,76 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "PageTranslateAI - Document Translation",
+    "version": "1.0.0",
+    "description": "Translate PDF, scanned PDF, DOCX, EPUB and images into 70+ languages while preserving layout. Use your own PageTranslate account and API key. Upload is free; review the returned quote before explicitly starting a translation with words already in your account. This integration never charges a card. Limits: 100 MB and 1,000 PDF pages. https://pagetranslate.ai/api",
+    "contact": { "name": "PageTranslate Support", "url": "https://pagetranslate.ai/contact", "email": "support@pagetranslate.ai" },
+    "termsOfService": "https://pagetranslate.ai/terms"
+  },
+  "servers": [{ "url": "https://api.pagetranslate.ai/api/v1" }],
+  "externalDocs": { "description": "PageTranslate API documentation", "url": "https://pagetranslate.ai/api" },
+  "security": [{ "PageTranslateKey": [] }],
+  "tags": [{ "name": "Documents", "description": "Upload, explicitly start, follow and download document translations" }],
+  "paths": {
+    "/upload/": {
+      "post": {
+        "operationId": "uploadDocument",
+        "tags": ["Documents"],
+        "summary": "Upload a document and get its quote",
+        "description": "Does not start translation. Send PDF, DOCX, EPUB or a supported image and a target language code, such as es, fr or pt-BR. Review the quote and call getTranslation before deciding to start. Uploads up to 100 MB; PDFs up to 1,000 pages.",
+        "requestBody": { "required": true, "content": { "multipart/form-data": { "schema": {
+          "type": "object", "required": ["file", "requested_language"], "properties": {
+            "file": { "type": "string", "format": "binary", "description": "PDF, DOCX, EPUB, PNG, JPG, WEBP, TIFF, BMP or GIF document" },
+            "requested_language": { "type": "string", "example": "es", "description": "Target language code; pt-BR for Brazilian Portuguese" }
+          }
+        } } } },
+        "responses": {
+          "200": { "description": "Document accepted; translation has not started", "content": { "application/json": { "schema": { "type": "object", "required": ["job_id", "filename", "requested_language"], "properties": { "job_id": { "type": "string" }, "filename": { "type": "string" }, "requested_language": { "type": "string" }, "quote": { "type": "object", "nullable": true, "additionalProperties": true } }, "additionalProperties": true } } } },
+          "400": { "$ref": "#/components/responses/InvalidRequest" }, "401": { "$ref": "#/components/responses/Unauthorized" }, "413": { "description": "Document exceeds the upload limit" }, "429": { "description": "Upload rate limit reached; retry later" }
+        }
+      }
+    },
+    "/jobs/": {
+      "get": {
+        "operationId": "listTranslations", "tags": ["Documents"], "summary": "List your recent translations",
+        "responses": { "200": { "description": "Recent account jobs, newest first", "content": { "application/json": { "schema": { "type": "object", "required": ["jobs"], "properties": { "jobs": { "type": "array", "items": { "$ref": "#/components/schemas/Job" } } } } } } }, "401": { "$ref": "#/components/responses/Unauthorized" } }
+      }
+    },
+    "/jobs/{job_id}": {
+      "parameters": [{ "$ref": "#/components/parameters/JobId" }],
+      "get": {
+        "operationId": "getTranslation", "tags": ["Documents"], "summary": "Get a translation's status and word count",
+        "description": "Poll about every 30 seconds while processing. A cost_cents value of zero indicates the current quote is covered by the account's word balance; start can still refuse if that balance changes. Only status=completed is ready to download.",
+        "responses": { "200": { "description": "Job status", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Job" } } } }, "401": { "$ref": "#/components/responses/Unauthorized" }, "403": { "description": "The job belongs to another account" }, "404": { "description": "Job not found" } }
+      }
+    },
+    "/jobs/{job_id}/translate": {
+      "parameters": [{ "$ref": "#/components/parameters/JobId" }],
+      "post": {
+        "operationId": "startTranslation", "tags": ["Documents"], "summary": "Start an explicitly confirmed translation using your word balance",
+        "description": "Only call after the user confirms the word count and quote. Spends existing word balance and cannot be undone. If the balance is insufficient, the request fails; no card is charged. Do not automatically retry a refused start.",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "properties": { "payment_method": { "type": "string", "enum": ["credits"], "default": "credits" } }, "additionalProperties": false }, "example": { "payment_method": "credits" } } } },
+        "responses": { "200": { "description": "Translation accepted for processing", "content": { "application/json": { "schema": { "type": "object", "additionalProperties": true } } } }, "400": { "description": "Balance does not cover this document, or the job cannot be started" }, "401": { "$ref": "#/components/responses/Unauthorized" }, "403": { "description": "The job belongs to another account" }, "409": { "description": "Already queued, or payment fulfillment is still processing; inspect job status" } }
+      }
+    },
+    "/jobs/{job_id}/download-link": {
+      "parameters": [{ "$ref": "#/components/parameters/JobId" }],
+      "post": {
+        "operationId": "getDownloadLink", "tags": ["Documents"], "summary": "Get a one-hour download link for a completed translation",
+        "description": "Prefix download_path with https://api.pagetranslate.ai (not the API /api/v1 base) to obtain the full download URL. Anyone holding this temporary link can download that translated document. Do not publish real signed links in templates or logs.",
+        "responses": { "200": { "description": "Temporary download capability", "content": { "application/json": { "schema": { "type": "object", "required": ["download_path", "expires_in", "filename"], "properties": { "download_path": { "type": "string" }, "expires_in": { "type": "integer", "example": 3600 }, "filename": { "type": "string" } } } } } }, "401": { "$ref": "#/components/responses/Unauthorized" }, "400": { "description": "The document is not ready" }, "404": { "description": "Job not found" }, "409": { "description": "Translation is not complete" } }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": { "PageTranslateKey": { "type": "http", "scheme": "bearer", "bearerFormat": "PageTranslate API key", "description": "Create your own API key at https://pagetranslate.ai/dashboard/api-keys. Send Authorization: Bearer pt_live_YOUR_KEY. Never use a shared provider key." } },
+    "parameters": { "JobId": { "name": "job_id", "in": "path", "required": true, "schema": { "type": "string", "pattern": "^[0-9a-fA-F]{24}$" }, "description": "The job_id returned by uploadDocument or listTranslations" } },
+    "responses": {
+      "Unauthorized": { "description": "Missing, revoked or invalid PageTranslate bearer API key" },
+      "InvalidRequest": { "description": "Invalid file, unsupported language or invalid request parameters" }
+    },
+    "schemas": { "Job": { "type": "object", "required": ["job_id", "filename", "status", "progress", "requested_language", "word_count"], "properties": {
+      "job_id": { "type": "string" }, "filename": { "type": "string" }, "status": { "type": "string" }, "progress": { "type": "integer", "minimum": 0, "maximum": 100 }, "requested_language": { "type": "string" }, "source_lang": { "type": "string", "nullable": true }, "word_count": { "type": "integer", "minimum": 0 }, "cost_cents": { "type": "integer", "nullable": true, "minimum": 0 }, "currency": { "type": "string", "nullable": true }, "payment_status": { "type": "string" }, "error": { "type": "string", "nullable": true }
+    }, "additionalProperties": true } }
+  }
+}

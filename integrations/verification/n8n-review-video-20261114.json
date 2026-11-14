@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-14",
+  "package": "n8n-nodes-pagetranslate@0.1.1",
+  "engine": "n8n 2.47.7",
+  "filename": "n8n-review-uncut-v0.1.1-final.mp4",
+  "sha256": "83f01c1c21c1095a789714d8fe50e0cc3b6976cea28e16864ac3ec7df908e1c4",
+  "duration_seconds": 299,
+  "bytes": 7356628,
+  "codec": "h264",
+  "resolution": [1440, 2388],
+  "recording": "ffmpeg X11 screen recording; no cuts, splices, synthetic UI, or speed changes",
+  "demonstrated": [
+    "Install the exact submitted npm package version in native n8n settings",
+    "Create a new workflow and add PageTranslate",
+    "Create a new restricted-domain credential and show successful connection test",
+    "Upload a real 100-word PDF and review the zero-cent quote",
+    "Explicitly confirm spending words and start translation",
+    "Get completed status with 100 percent progress",
+    "Get an expiring download link and translated PDF filename"
+  ],
+  "job_id": "6af8d97bc9549512469972c9",
+  "submission": {
+    "portal": "https://creators.n8n.io/nodes/n8n-nodes-pagetranslate/integration",
+    "observed_status": "Manual review UNDER REVIEW",
+    "receipt": "Thanks for uploading! Our team is now reviewing your submission. We typically take up to 4 weeks to complete our review.",
+    "approved": false
+  }
+}
