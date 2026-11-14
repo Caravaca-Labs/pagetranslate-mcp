@@ -28,7 +28,7 @@ Prices and limits below mirror https://api.pagetranslate.ai/api/v1/pricing/catal
 # PageTranslate MCP server: a PDF translator and document translator for AI agents
 
 [![npm package](https://img.shields.io/npm/v/pagetranslate-mcp?label=npm)](https://www.npmjs.com/package/pagetranslate-mcp)
-[![Pi package](https://img.shields.io/badge/Pi-package-3B82F6)](https://pi.dev/packages?search=pagetranslate)
+[![Pi package](https://img.shields.io/badge/Pi-package-3B82F6)](https://pi.dev/packages/pagetranslate-mcp)
 [![Agent skills](https://img.shields.io/badge/agent_skills-SKILL.md-0F766E)](#agent-skills)
 [![skills.sh](https://skills.sh/b/caravaca-labs/pagetranslate-mcp)](https://skills.sh/caravaca-labs/pagetranslate-mcp)
 [![PageTranslate MCP server on Glama](https://glama.ai/mcp/servers/Caravaca-Labs/pagetranslate-mcp/badges/score.svg)](https://glama.ai/mcp/servers/Caravaca-Labs/pagetranslate-mcp)
@@ -220,6 +220,21 @@ in the official MCP Registry and on npm as
 [ClawHub](https://clawhub.ai). [Glama](https://glama.ai/mcp/servers/Caravaca-Labs/pagetranslate-mcp)
 builds and scores the server. The registry entry also lists the hosted server,
 `https://pagetranslate.ai/mcp`.
+
+Pi also has a [PageTranslate package page](https://pi.dev/packages/pagetranslate-mcp).
+The four OpenClaw listings are [PDF](https://clawhub.ai/catorch/pagetranslate-pdf-translator),
+[scanned PDF](https://clawhub.ai/catorch/pagetranslate-scanned-pdf-translator),
+[books](https://clawhub.ai/catorch/pagetranslate-book-translator), and
+[documents](https://clawhub.ai/catorch/pagetranslate-document-translator).
+
+## Other integrations
+
+For workflows outside an MCP client, use the
+[RapidAPI listing](https://rapidapi.com/CaravacaLabs/api/pagetranslateai-document-translation)
+or the [remixable Replit document translator](https://replit.com/@caravacaai/PageTranslateAI-Translator?v=1).
+Both use your own PageTranslate API key. The Replit demo runs on time-limited free hosting.
+Native connector source and current publication status are in
+[PageTranslate integrations](https://github.com/Caravaca-Labs/pagetranslate-integrations).
 
 ## Configuration
 
