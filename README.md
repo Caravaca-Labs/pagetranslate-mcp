@@ -188,6 +188,15 @@ Guides and free tools:
 - [Translate English to Spanish documents](https://pagetranslate.ai/document-translation-software/google-translate-english-to-spanish-documents)
 - [EPUB merger](https://pagetranslate.ai/tools/epub-merger) and other [free tools for authors](https://pagetranslate.ai/tools)
 
+## Registries
+
+The server is published as
+[`io.github.catorch/pagetranslate-mcp`](https://registry.modelcontextprotocol.io/v0/servers?search=pagetranslate)
+in the official MCP Registry and on npm as
+[`pagetranslate-mcp`](https://www.npmjs.com/package/pagetranslate-mcp). The skills are on
+[skills.sh](https://www.skills.sh/caravaca-labs/pagetranslate-mcp) and, for OpenClaw, on
+[ClawHub](https://clawhub.ai).
+
 ## Configuration
 
 | Variable | Required | Meaning |
