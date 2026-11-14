@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "pagetranslate": {
+      "command": "npx",
+      "args": ["-y", "pagetranslate-mcp"],
+      "env": {
+        "PAGETRANSLATE_API_KEY": "${PAGETRANSLATE_API_KEY}"
+      }
+    }
+  }
+}

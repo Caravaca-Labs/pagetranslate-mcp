@@ -1,0 +1,12 @@
+{
+  "name": "pagetranslate",
+  "displayName": "PageTranslate",
+  "version": "0.1.1",
+  "description": "PDF translator and document translator for Cursor: translate PDF, scanned PDF, DOCX and EPUB files into 70+ languages and get the same kind of file back, layout kept.",
+  "author": { "name": "Caravaca Labs" },
+  "homepage": "https://pagetranslate.ai",
+  "repository": "https://github.com/Caravaca-Labs/pagetranslate-mcp",
+  "license": "MIT",
+  "keywords": ["translation", "pdf-translator", "document-translation", "docx", "epub", "ocr", "mcp"],
+  "logo": ".claude-plugin/icon.png"
+}
