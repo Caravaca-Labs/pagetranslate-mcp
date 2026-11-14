@@ -291,6 +291,10 @@ ${list(SKILLS.map((skill) => `\`${skill.name}\`: ${skill.intro}`))}
 
 ## Setup
 
+\`\`\`
+/plugin install pagetranslate --marketplace Caravaca-Labs/pagetranslate-mcp
+\`\`\`
+
 Installing the plugin asks for a PageTranslate API key. Create one at ${SITE}/dashboard/api-keys
 (free account, verified email).
 
