@@ -26,7 +26,7 @@
     "url": "git+https://github.com/Caravaca-Labs/pagetranslate-mcp.git"
   },
   "license": "MIT",
-  "author": "PageTranslate (https://pagetranslate.ai)",
+  "author": "Caravaca Labs (https://pagetranslate.ai)",
   "mcpName": "io.github.catorch/pagetranslate-mcp",
   "type": "module",
   "bin": {

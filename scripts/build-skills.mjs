@@ -5,7 +5,9 @@
 // LICENSE and the skills without the curl fallback, since the plugin always has the MCP server).
 // That folder is what the `claude-plugin` branch holds, for Anthropic's plugin directory:
 //   node scripts/build-skills.mjs --plugin && cd dist-plugin && git init -q -b claude-plugin && git add -A &&
-//   git commit -qm "Plugin <version>" && git push -f https://github.com/Caravaca-Labs/pagetranslate-mcp.git claude-plugin
+//   git -c user.name="$(git -C .. config user.name)" -c user.email="$(git -C .. config user.email)" commit -qm "Plugin <version>" &&
+//   git push -f https://github.com/Caravaca-Labs/pagetranslate-mcp.git claude-plugin
+// (dist-plugin is its own repository, so it needs this one's author identity passed in.)
 import { copyFileSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 
 const { version } = JSON.parse(readFileSync("package.json", "utf8"));
