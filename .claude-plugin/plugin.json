@@ -5,6 +5,8 @@
   "description": "PDF translator and document translator for Claude: translate PDF, scanned PDF, DOCX, EPUB and image files into 70+ languages and get the same kind of file back, layout kept.",
   "author": { "name": "PageTranslate", "url": "https://pagetranslate.ai" },
   "homepage": "https://pagetranslate.ai",
+  "documentationUrl": "https://github.com/Caravaca-Labs/pagetranslate-mcp#readme",
+  "termsOfServiceUrl": "https://pagetranslate.ai/terms",
   "repository": "https://github.com/Caravaca-Labs/pagetranslate-mcp",
   "license": "MIT",
   "keywords": ["translation", "pdf-translator", "document-translation", "docx", "epub", "ocr", "mcp"],
